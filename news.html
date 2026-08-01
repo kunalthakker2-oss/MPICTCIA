@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>News & Updates | MPICTCIA</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <div class="top-header">
+
+        <div class="logo">
+
+            <img src="images/logo.png" alt="MPICTCIA Logo">
+
+        </div>
+
+
+        <div class="title">
+
+            <h1>
+                Madhya Pradesh ICT Computer Instructor Association
+            </h1>
+
+            <p>
+                मध्य प्रदेश आईसीटी कंप्यूटर इंस्ट्रक्टर एसोसिएशन
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= NAVIGATION ================= -->
+
+    <nav>
+
+        <a href="index.html">Home</a>
+
+        <a href="about.html">About Us</a>
+
+        <a href="news.html">News & Updates</a>
+
+        <a href="orders.html">Govt. Orders</a>
+
+        <a href="court.html">Court Cases</a>
+
+        <a href="team.html">Team</a>
+
+        <a href="gallery.html">Gallery</a>
+
+        <a href="membership.html">Membership</a>
+
+        <a href="contact.html">Contact</a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- ================= PAGE HEADING ================= -->
+
+<section class="page-heading">
+
+    <h1>News & Updates</h1>
+
+    <p>
+        MPICTCIA से संबंधित नवीनतम समाचार,
+        सूचनाएं एवं महत्वपूर्ण अपडेट
+    </p>
+
+</section>
+
+
+
+<!-- ================= NEWS SECTION ================= -->
+
+<section class="news-container" id="newsContainer">
+
+    <p id="loadingNews">
+
+        News loading...
+
+    </p>
+
+</section>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <h2>MPICTCIA</h2>
+
+    <p>
+        Madhya Pradesh ICT Computer Instructor Association
+    </p>
+
+    <p class="copyright">
+
+        © 2026 MPICTCIA. All Rights Reserved.
+
+    </p>
+
+</footer>
+
+
+
+<!-- ================= FIREBASE ================= -->
+
+<script type="module">
+
+
+/* Firebase App */
+
+import { initializeApp }
+
+from
+
+"https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+
+
+
+/* Firestore */
+
+import {
+
+    getFirestore,
+
+    collection,
+
+    getDocs,
+
+    query,
+
+    orderBy
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+
+
+
+/* ================= FIREBASE CONFIG ================= */
+
+
+const firebaseConfig = {
+
+    apiKey: "AIzaSyBXDHTCqM3DMWe0P-D1JJxcTLwW9y1vbqM",
+
+    authDomain: "mpictcia.firebaseapp.com",
+
+    projectId: "mpictcia",
+
+    storageBucket: "mpictcia.firebasestorage.app",
+
+    messagingSenderId: "222042559667",
+
+    appId: "1:222042559667:web:43d036827e77e88633ccc6"
+
+};
+
+
+
+/* ================= INITIALIZE FIREBASE ================= */
+
+
+const app = initializeApp(firebaseConfig);
+
+
+const db = getFirestore(app);
+
+
+
+/* ================= NEWS CONTAINER ================= */
+
+
+const newsContainer =
+
+document.getElementById("newsContainer");
+
+
+
+/* ================= LOAD NEWS ================= */
+
+
+async function loadNews() {
+
+
+    try {
+
+
+        /* Get News Collection */
+
+
+        const newsQuery = query(
+
+            collection(db, "news"),
+
+            orderBy("createdAt", "desc")
+
+        );
+
+
+
+        const snapshot =
+
+        await getDocs(newsQuery);
+
+
+
+        /* Remove Loading Message */
+
+
+        newsContainer.innerHTML = "";
+
+
+
+        /* If No News */
+
+
+        if (snapshot.empty) {
+
+
+            newsContainer.innerHTML =
+
+            "<p>अभी कोई समाचार उपलब्ध नहीं है।</p>";
+
+
+            return;
+
+        }
+
+
+
+        /* Show News */
+
+
+        snapshot.forEach((doc) => {
+
+
+            const news = doc.data();
+
+
+
+            /* ================= DATE ================= */
+
+
+            let date = "नई सूचना";
+
+
+            if (news.createdAt) {
+
+
+                date = news.createdAt
+
+                .toDate()
+
+                .toLocaleDateString(
+
+                    "en-IN",
+
+                    {
+
+                        day: "2-digit",
+
+                        month: "long",
+
+                        year: "numeric"
+
+                    }
+
+                );
+
+            }
+
+
+
+            /* ================= NEWS CARD ================= */
+
+
+            const card =
+
+            document.createElement("div");
+
+
+            card.className = "news-card";
+
+
+
+            /* DATE */
+
+
+            const dateDiv =
+
+            document.createElement("div");
+
+
+            dateDiv.className = "news-date";
+
+
+            dateDiv.textContent = date;
+
+
+
+            /* TITLE */
+
+
+            const title =
+
+            document.createElement("h2");
+
+
+            title.textContent =
+
+            news.title || "Untitled";
+
+
+
+            /* DESCRIPTION */
+
+
+            const description =
+
+            document.createElement("p");
+
+
+            description.textContent =
+
+            news.description || "";
+
+
+
+            /* ADD EVERYTHING TO CARD */
+
+
+            card.appendChild(dateDiv);
+
+            card.appendChild(title);
+
+            card.appendChild(description);
+
+
+
+            /* ADD CARD TO PAGE */
+
+
+            newsContainer.appendChild(card);
+
+
+        });
+
+
+
+    }
+
+
+    catch (error) {
+
+
+        console.error(
+
+            "Firebase News Error:",
+
+            error
+
+        );
+
+
+        newsContainer.innerHTML =
+
+        "<p>❌ News load nahi ho paayi.</p>";
+
+
+    }
+
+
+}
+
+
+
+/* ================= START ================= */
+
+
+loadNews();
+
+
+</script>
+
+
+</body>
+
+</html>

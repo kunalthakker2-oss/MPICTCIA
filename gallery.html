@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gallery | MPICTCIA</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header>
+    <div class="top-header">
+        <div class="logo">
+            <img src="images/logo.png" alt="MPICTCIA Logo">
+        </div>
+
+        <div class="title">
+            <h1>Madhya Pradesh ICT Computer Instructor Association</h1>
+            <p>मध्य प्रदेश आईसीटी कंप्यूटर इंस्ट्रक्टर एसोसिएशन</p>
+        </div>
+    </div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="news.html">News & Updates</a>
+        <a href="orders.html">Govt. Orders</a>
+        <a href="court.html">Court Cases</a>
+        <a href="team.html">Team</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="membership.html">Membership</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+</header>
+
+
+<section class="page-heading">
+    <h1>📸 Photo Gallery</h1>
+    <p>MPICTCIA की गतिविधियां, बैठकें एवं महत्वपूर्ण कार्यक्रम</p>
+</section>
+
+
+<section class="gallery-section">
+
+    <div class="section-title">
+        <h2>Our Activities</h2>
+        <p>संगठन की प्रमुख गतिविधियों की झलकियां</p>
+    </div>
+
+
+    <div class="gallery-grid">
+
+        <div class="gallery-item">
+            <img src="images/gallery/photo1.jpg"
+                 alt="MPICTCIA Activity"
+                 onclick="openImage(this.src)">
+
+            <div class="gallery-caption">
+                <h3>संगठन बैठक</h3>
+                <p>MPICTCIA</p>
+            </div>
+        </div>
+
+
+        <div class="gallery-item">
+            <img src="images/gallery/photo2.jpg"
+                 alt="MPICTCIA Activity"
+                 onclick="openImage(this.src)">
+
+            <div class="gallery-caption">
+                <h3>प्रतिनिधिमंडल</h3>
+                <p>MPICTCIA</p>
+            </div>
+        </div>
+
+
+        <div class="gallery-item">
+            <img src="images/gallery/photo3.jpg"
+                 alt="MPICTCIA Activity"
+                 onclick="openImage(this.src)">
+
+            <div class="gallery-caption">
+                <h3>ज्ञापन कार्यक्रम</h3>
+                <p>MPICTCIA</p>
+            </div>
+        </div>
+
+
+        <div class="gallery-item">
+            <img src="images/gallery/photo4.jpg"
+                 alt="MPICTCIA Activity"
+                 onclick="openImage(this.src)">
+
+            <div class="gallery-caption">
+                <h3>ICT Instructor Meeting</h3>
+                <p>Madhya Pradesh</p>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FULL SCREEN IMAGE -->
+
+<div id="imageModal" class="image-modal" onclick="closeImage()">
+
+    <span class="close-image">&times;</span>
+
+    <img id="modalImage" src="" alt="Gallery Preview">
+
+</div>
+
+
+<footer>
+    <h2>MPICTCIA</h2>
+    <p>Madhya Pradesh ICT Computer Instructor Association</p>
+
+    <p class="copyright">
+        © 2026 MPICTCIA. All Rights Reserved.
+    </p>
+</footer>
+
+
+<script>
+
+function openImage(imageSource) {
+
+    document.getElementById("imageModal").style.display = "flex";
+
+    document.getElementById("modalImage").src = imageSource;
+
+}
+
+
+function closeImage() {
+
+    document.getElementById("imageModal").style.display = "none";
+
+}
+
+</script>
+
+</body>
+</html>

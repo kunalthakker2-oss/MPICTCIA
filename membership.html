@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Membership | MPICTCIA</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header>
+
+    <div class="top-header">
+
+        <div class="logo">
+            <img src="images/logo.png" alt="MPICTCIA Logo">
+        </div>
+
+        <div class="title">
+            <h1>Madhya Pradesh ICT Computer Instructor Association</h1>
+            <p>मध्य प्रदेश आईसीटी कंप्यूटर इंस्ट्रक्टर एसोसिएशन</p>
+        </div>
+
+    </div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="news.html">News & Updates</a>
+        <a href="orders.html">Govt. Orders</a>
+        <a href="court.html">Court Cases</a>
+        <a href="team.html">Team</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="membership.html">Membership</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+</header>
+
+
+<section class="page-heading">
+
+    <h1>Join MPICTCIA</h1>
+
+    <p>
+        मध्य प्रदेश ICT Computer Instructor Association की सदस्यता हेतु आवेदन
+    </p>
+
+</section>
+
+
+<section class="membership-section">
+
+    <div class="membership-intro">
+
+        <h2>Membership Application</h2>
+
+        <p>
+            कृपया नीचे दी गई जानकारी सही-सही भरें।
+            सदस्यता की पुष्टि संगठन द्वारा सत्यापन के बाद की जाएगी।
+        </p>
+
+    </div>
+
+
+    <form class="membership-form" id="membershipForm">
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label for="fullName">पूरा नाम *</label>
+
+                <input
+                    type="text"
+                    id="fullName"
+                    name="fullName"
+                    placeholder="अपना पूरा नाम लिखें"
+                    required>
+            </div>
+
+
+            <div class="form-group">
+                <label for="mobile">मोबाइल नंबर *</label>
+
+                <input
+                    type="tel"
+                    id="mobile"
+                    name="mobile"
+                    placeholder="10 अंकों का मोबाइल नंबर"
+                    pattern="[0-9]{10}"
+                    maxlength="10"
+                    required>
+            </div>
+
+
+            <div class="form-group">
+                <label for="email">ईमेल</label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="example@email.com">
+            </div>
+
+
+            <div class="form-group">
+                <label for="district">जिला *</label>
+
+                <input
+                    type="text"
+                    id="district"
+                    name="district"
+                    placeholder="अपना जिला लिखें"
+                    required>
+            </div>
+
+
+            <div class="form-group">
+                <label for="block">विकासखंड / Block *</label>
+
+                <input
+                    type="text"
+                    id="block"
+                    name="block"
+                    placeholder="अपना Block लिखें"
+                    required>
+            </div>
+
+
+            <div class="form-group">
+                <label for="school">विद्यालय का नाम *</label>
+
+                <input
+                    type="text"
+                    id="school"
+                    name="school"
+                    placeholder="विद्यालय का पूरा नाम"
+                    required>
+            </div>
+
+
+            <div class="form-group">
+                <label for="udise">UDISE Code</label>
+
+                <input
+                    type="text"
+                    id="udise"
+                    name="udise"
+                    placeholder="विद्यालय UDISE Code">
+            </div>
+
+
+            <div class="form-group">
+                <label for="designation">पद *</label>
+
+                <select id="designation" name="designation" required>
+
+                    <option value="">Select</option>
+
+                    <option value="ICT Computer Instructor">
+                        ICT Computer Instructor
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="joiningYear">कार्य प्रारंभ वर्ष</label>
+
+                <input
+                    type="number"
+                    id="joiningYear"
+                    name="joiningYear"
+                    placeholder="उदाहरण: 2023"
+                    min="2000"
+                    max="2030">
+            </div>
+
+
+            <div class="form-group">
+                <label for="employeeId">Employee / Instructor ID</label>
+
+                <input
+                    type="text"
+                    id="employeeId"
+                    name="employeeId"
+                    placeholder="यदि उपलब्ध हो">
+            </div>
+
+        </div>
+
+
+        <div class="form-group full-width">
+
+            <label for="message">
+                अतिरिक्त जानकारी
+            </label>
+
+            <textarea
+                id="message"
+                name="message"
+                rows="4"
+                placeholder="यदि कोई अतिरिक्त जानकारी देना चाहते हैं..."></textarea>
+
+        </div>
+
+
+        <div class="consent-box">
+
+            <input
+                type="checkbox"
+                id="consent"
+                required>
+
+            <label for="consent">
+                मैं पुष्टि करता/करती हूं कि मेरे द्वारा दी गई जानकारी सही है
+                तथा संगठन द्वारा सत्यापन हेतु उपयोग की जा सकती है।
+            </label>
+
+        </div>
+
+
+        <button type="submit" class="membership-submit">
+            Submit Membership Application
+        </button>
+
+
+        <div id="formMessage" class="form-message"></div>
+
+    </form>
+
+</section>
+
+
+<footer>
+
+    <h2>MPICTCIA</h2>
+
+    <p>Madhya Pradesh ICT Computer Instructor Association</p>
+
+    <p class="copyright">
+        © 2026 MPICTCIA. All Rights Reserved.
+    </p>
+
+</footer>
+
+
+<script>
+
+const membershipForm = document.getElementById("membershipForm");
+
+membershipForm.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    document.getElementById("formMessage").innerHTML =
+        "✓ Form तैयार है। Online database connection अगले चरण में जोड़ा जाएगा.";
+
+});
+
+</script>
+
+</body>
+</html>

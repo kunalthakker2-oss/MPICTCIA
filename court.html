@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Court Cases | MPICTCIA</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+
+<body>
+
+<header>
+
+    <div class="top-header">
+
+        <div class="logo">
+            <img src="images/logo.png" alt="MPICTCIA Logo">
+        </div>
+
+        <div class="title">
+            <h1>Madhya Pradesh ICT Computer Instructor Association</h1>
+
+            <p>
+                मध्य प्रदेश आईसीटी कंप्यूटर इंस्ट्रक्टर एसोसिएशन
+            </p>
+        </div>
+
+    </div>
+
+
+    <nav>
+
+        <a href="index.html">Home</a>
+
+        <a href="about.html">About Us</a>
+
+        <a href="news.html">News & Updates</a>
+
+        <a href="orders.html">Govt. Orders</a>
+
+        <a href="court.html">Court Cases</a>
+
+        <a href="team.html">Team</a>
+
+        <a href="gallery.html">Gallery</a>
+
+        <a href="membership.html">Membership</a>
+
+        <a href="contact.html">Contact</a>
+
+    </nav>
+
+</header>
+
+
+
+<section class="page-heading">
+
+    <h1>⚖️ Court Cases</h1>
+
+    <p>
+        ICT Computer Instructors से संबंधित न्यायालयीन प्रकरण
+        एवं महत्वपूर्ण आदेश
+    </p>
+
+</section>
+
+
+
+<!-- COURT CASES WILL LOAD HERE -->
+
+<section
+    class="court-container"
+    id="courtContainer">
+
+    <p>
+        Court Cases loading...
+    </p>
+
+</section>
+
+
+
+<footer>
+
+    <h2>MPICTCIA</h2>
+
+    <p>
+        Madhya Pradesh ICT Computer Instructor Association
+    </p>
+
+    <p class="copyright">
+        © 2026 MPICTCIA. All Rights Reserved.
+    </p>
+
+</footer>
+
+
+
+<script type="module">
+
+
+import { initializeApp }
+
+from
+
+"https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+
+
+
+import {
+
+    getFirestore,
+
+    collection,
+
+    getDocs,
+
+    query,
+
+    orderBy
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+
+
+
+const firebaseConfig = {
+
+    apiKey: "AIzaSyBXDHTCqM3DWHe0P-D1JJxcTLwW9y1vbqM",
+
+    authDomain: "mpictcia.firebaseapp.com",
+
+    projectId: "mpictcia",
+
+    storageBucket: "mpictcia.firebasestorage.app",
+
+    messagingSenderId: "222042559667",
+
+    appId: "1:222042559667:web:43d036827e77e88633ccc6"
+
+};
+
+
+
+const app = initializeApp(firebaseConfig);
+
+
+const db = getFirestore(app);
+
+
+
+const courtContainer =
+
+document.getElementById("courtContainer");
+
+
+
+async function loadCourtCases() {
+
+
+    try {
+
+
+        const courtQuery = query(
+
+            collection(db, "courtCases"),
+
+            orderBy("createdAt", "desc")
+
+        );
+
+
+
+        const snapshot =
+
+        await getDocs(courtQuery);
+
+
+
+        courtContainer.innerHTML = "";
+
+
+
+        if (snapshot.empty) {
+
+
+            courtContainer.innerHTML =
+
+            "<p>अभी कोई न्यायालयीन प्रकरण उपलब्ध नहीं है।</p>";
+
+
+            return;
+
+        }
+
+
+
+        snapshot.forEach((doc) => {
+
+
+            const courtCase = doc.data();
+
+
+
+            /* ================= DATE ================= */
+
+
+            let formattedDate = "नई जानकारी";
+
+
+            if (courtCase.lastUpdate) {
+
+
+                const dateObject =
+
+                new Date(
+                    courtCase.lastUpdate + "T00:00:00"
+                );
+
+
+                formattedDate =
+
+                dateObject.toLocaleDateString(
+
+                    "en-IN",
+
+                    {
+
+                        day: "2-digit",
+
+                        month: "long",
+
+                        year: "numeric"
+
+                    }
+
+                );
+
+            }
+
+
+
+            /* ================= CARD ================= */
+
+
+            const card =
+
+            document.createElement("div");
+
+
+            card.className = "court-card";
+
+
+
+            /* ================= STATUS ================= */
+
+
+            const status =
+
+            document.createElement("div");
+
+
+            const statusValue =
+
+            courtCase.status || "Pending";
+
+
+            status.className =
+
+            "case-status " +
+
+            (
+                statusValue.toLowerCase() === "disposed"
+
+                ? "disposed"
+
+                : "pending"
+            );
+
+
+            status.textContent = statusValue;
+
+
+
+            /* ================= TITLE ================= */
+
+
+            const title =
+
+            document.createElement("h2");
+
+
+            title.textContent =
+
+            courtCase.title ||
+            "Court Case";
+
+
+
+            /* ================= DETAILS ================= */
+
+
+            const details =
+
+            document.createElement("div");
+
+
+            details.className =
+            "case-details";
+
+
+
+            /* COURT */
+
+
+            const court =
+
+            document.createElement("p");
+
+
+            const courtStrong =
+
+            document.createElement("strong");
+
+
+            courtStrong.textContent =
+            "Court: ";
+
+
+            court.appendChild(
+                courtStrong
+            );
+
+
+            court.appendChild(
+
+                document.createTextNode(
+                    courtCase.courtName || "-"
+                )
+
+            );
+
+
+
+            /* CASE NUMBER */
+
+
+            const caseNumber =
+
+            document.createElement("p");
+
+
+            const caseStrong =
+
+            document.createElement("strong");
+
+
+            caseStrong.textContent =
+            "Case No: ";
+
+
+            caseNumber.appendChild(
+                caseStrong
+            );
+
+
+            caseNumber.appendChild(
+
+                document.createTextNode(
+                    courtCase.caseNumber || "-"
+                )
+
+            );
+
+
+
+            /* LAST UPDATE */
+
+
+            const updateDate =
+
+            document.createElement("p");
+
+
+            const updateStrong =
+
+            document.createElement("strong");
+
+
+            updateStrong.textContent =
+            "Last Update: ";
+
+
+            updateDate.appendChild(
+                updateStrong
+            );
+
+
+            updateDate.appendChild(
+
+                document.createTextNode(
+                    formattedDate
+                )
+
+            );
+
+
+
+            /* CASE UPDATE */
+
+
+            const caseUpdate =
+
+            document.createElement("p");
+
+
+            const caseUpdateStrong =
+
+            document.createElement("strong");
+
+
+            caseUpdateStrong.textContent =
+            "Case Update: ";
+
+
+            caseUpdate.appendChild(
+                caseUpdateStrong
+            );
+
+
+            caseUpdate.appendChild(
+
+                document.createTextNode(
+                    courtCase.caseUpdate || ""
+                )
+
+            );
+
+
+
+            details.appendChild(
+                court
+            );
+
+
+            details.appendChild(
+                caseNumber
+            );
+
+
+            details.appendChild(
+                updateDate
+            );
+
+
+            details.appendChild(
+                caseUpdate
+            );
+
+
+
+            /* ================= BUTTONS ================= */
+
+
+            const buttons =
+
+            document.createElement("div");
+
+
+            buttons.className =
+            "court-buttons";
+
+
+
+            if (courtCase.pdfUrl) {
+
+
+                /* VIEW */
+
+
+                const viewButton =
+
+                document.createElement("a");
+
+
+                viewButton.href =
+                courtCase.pdfUrl;
+
+
+                viewButton.target =
+                "_blank";
+
+
+                viewButton.rel =
+                "noopener";
+
+
+                viewButton.className =
+                "view-btn";
+
+
+                viewButton.textContent =
+                "View Court Order";
+
+
+
+                /* DOWNLOAD */
+
+
+                const downloadButton =
+
+                document.createElement("a");
+
+
+                downloadButton.href =
+                courtCase.pdfUrl;
+
+
+                downloadButton.className =
+                "download-btn";
+
+
+                downloadButton.textContent =
+                "Download Order";
+
+
+                downloadButton.setAttribute(
+                    "download",
+                    ""
+                );
+
+
+
+                buttons.appendChild(
+                    viewButton
+                );
+
+
+                buttons.appendChild(
+                    downloadButton
+                );
+
+            }
+
+
+
+            /* ================= BUILD CARD ================= */
+
+
+            card.appendChild(
+                status
+            );
+
+
+            card.appendChild(
+                title
+            );
+
+
+            card.appendChild(
+                details
+            );
+
+
+            if (courtCase.pdfUrl) {
+
+                card.appendChild(
+                    buttons
+                );
+
+            }
+
+
+            courtContainer.appendChild(
+                card
+            );
+
+
+        });
+
+
+    }
+
+
+    catch (error) {
+
+
+        console.error(
+            "Court Cases Error:",
+            error
+        );
+
+
+        courtContainer.innerHTML =
+
+        "<p>❌ Court Cases load nahi ho paaye.</p>";
+
+
+    }
+
+
+}
+
+
+
+loadCourtCases();
+
+
+</script>
+
+
+</body>
+
+</html>

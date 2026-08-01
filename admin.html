@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login | MPICTCIA</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .admin-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 15px;
+            background: linear-gradient(135deg, #07366d, #1282c4);
+        }
+
+        .admin-login {
+            width: 100%;
+            max-width: 430px;
+            background: white;
+            padding: 35px;
+            border-radius: 14px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+        }
+
+        .admin-logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .admin-logo img {
+            width: 120px;
+        }
+
+        .admin-login h1 {
+            text-align: center;
+            color: #0b3d78;
+            margin-bottom: 5px;
+        }
+
+        .admin-login > p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .admin-login .form-group {
+            margin-bottom: 18px;
+        }
+
+        .admin-login label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+            color: #0b3d78;
+        }
+
+        .admin-login input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        .admin-button {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 6px;
+            background: #0b5da8;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .admin-button:hover {
+            background: #198754;
+        }
+
+        .login-message {
+            margin-top: 18px;
+            text-align: center;
+            font-weight: bold;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        .back-home {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #0b5da8;
+            text-decoration: none;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<section class="admin-page">
+
+    <div class="admin-login">
+
+        <div class="admin-logo">
+            <img src="images/logo.png" alt="MPICTCIA Logo">
+        </div>
+
+        <h1>Admin Login</h1>
+
+        <p>MPICTCIA Administration</p>
+
+
+        <form id="loginForm">
+
+            <div class="form-group">
+
+                <label for="adminEmail">
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="adminEmail"
+                    placeholder="Admin Email"
+                    autocomplete="email"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="adminPassword">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="adminPassword"
+                    placeholder="Password"
+                    autocomplete="current-password"
+                    required>
+
+            </div>
+
+
+            <button type="submit" class="admin-button">
+                Login
+            </button>
+
+        </form>
+
+
+        <div id="loginMessage" class="login-message"></div>
+
+
+        <a href="index.html" class="back-home">
+            ← Back to Website
+        </a>
+
+    </div>
+
+</section>
+
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+
+
+import {
+    getAuth,
+    signInWithEmailAndPassword
+}
+from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+
+
+const firebaseConfig = {
+
+    apiKey: "AIzaSyBXDHTCqM3DWHe0P-D1JJxcTLwW9y1vbqM",
+
+    authDomain: "mpictcia.firebaseapp.com",
+
+    projectId: "mpictcia",
+
+    storageBucket: "mpictcia.firebasestorage.app",
+
+    messagingSenderId: "222042559667",
+
+    appId: "1:222042559667:web:43d036827e77e88633ccc6"
+
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+
+const loginForm =
+    document.getElementById("loginForm");
+
+
+const loginMessage =
+    document.getElementById("loginMessage");
+
+
+loginForm.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        const email =
+            document
+            .getElementById("adminEmail")
+            .value
+            .trim();
+
+
+        const password =
+            document
+            .getElementById("adminPassword")
+            .value;
+
+
+        loginMessage.style.color = "#0b5da8";
+
+        loginMessage.innerHTML =
+            "Connecting to Firebase...";
+
+
+        try {
+
+            const userCredential =
+                await signInWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
+
+
+            console.log(
+                "Logged in user:",
+                userCredential.user.email
+            );
+
+
+            loginMessage.style.color = "#198754";
+
+            loginMessage.innerHTML =
+                "✅ Login Successful";
+
+
+            setTimeout(function() {
+
+                window.location.href =
+                    "dashboard.html";
+
+            }, 800);
+
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Firebase Login Error:",
+                error
+            );
+
+
+            loginMessage.style.color =
+                "#d62828";
+
+
+            loginMessage.innerHTML =
+
+                "❌ Firebase Login Failed" +
+
+                "<br><br>Error Code: " +
+
+                error.code +
+
+                "<br><br>" +
+
+                error.message;
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>

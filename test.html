@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Firebase Test</title>
+</head>
+
+<body>
+
+<h1>Firebase Connection Test</h1>
+<p id="status">Testing...</p>
+
+<script type="module">
+
+import { db } from "./firebase.js";
+
+import {
+    collection,
+    addDoc
+} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+
+try {
+
+    const docRef = await addDoc(collection(db, "test"), {
+        message: "MPICTCIA Firebase Working",
+        date: new Date()
+    });
+
+    document.getElementById("status").innerHTML =
+        "✅ Firebase Connected Successfully!";
+
+    console.log("Document ID:", docRef.id);
+
+} catch (error) {
+
+    document.getElementById("status").innerHTML =
+        "❌ Firebase Error: " + error.message;
+
+    console.error(error);
+}
+
+</script>
+
+</body>
+</html>
